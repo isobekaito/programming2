@@ -605,10 +605,11 @@ class Stack:
       self.items.append(data)
 
    def pop(self):
-      return self.items.pop()
+      if self IndexError("pop from empty stack")
+      return self.items.pop(0)
 
    def is_empty(self):
-      return len(self.items) 
+      return len(self.items) ==0 
 
 ```
 
@@ -624,10 +625,12 @@ class Queue:
       self.items.append(data)
 
    def dequeue(self):
-       return self.items.pop()
+       if self.is empty():
+         raise IndexError("dequeue from empty queue")
+       return self.items.pop(0)
 
    def is_empty(self):
-      return len(self.items) 
+      return len(self.items) == 0
       
     
 
