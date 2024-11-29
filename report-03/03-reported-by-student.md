@@ -69,29 +69,29 @@ import random
 
 # 生産者Coroutine: 無からアイテムを生産する専門家
 def producer(consumer_coroutine):
-    print("[生産者]: 生産準備OK...")
+    print("[マリオ]: 生産準備OK...")
     consumer_coroutine.send(None)  
     for i in range(3):  # アイテム（データ）を3個生産
         duration = random.uniform(0.5, 1.5)
         time.sleep(duration)  # 生産に要した時間
         item = f"アイテム {i}"
-        print(f"\n---[生産者]: 所要時間{duration:.2f}秒で, {item} を生産")
+        print(f"\n---[マリオ]: 所要時間{duration:.2f}秒で, {item} を生産")
         consumer_coroutine.send(item)  
     consumer_coroutine.close()  # 消費者コルーチンを終了
-    print("\n---[生産者]: 生産終了")
+    print("\n---[マリオ]: 生産終了")
 
 # 消費者Coroutine: アイテムを受け取り、別の製品を生み出す専門家
 def consumer():
-    print("<消費者>: 準備OK...")
+    print("<ルイージ>: 準備OK...")
     try:
         while True:
             item = yield  
-            print(f"<消費者>: {item} 受領... 消費中.........")
+            print(f"<ルイージ>: {item} 受領... 消費中.........")
             duration = random.uniform(0.5, 1.5)
             time.sleep(duration)  # 消費に要した時間
-            print(f"<消費者>: 所要時間{duration:.2f}秒で, {item} 消費完了")
+            print(f"<ルイージ>: 所要時間{duration:.2f}秒で, {item} 消費完了")
     except GeneratorExit:
-        print("\n<消費者>: 消費完了")  # この出力を最後に出すために、StopIteration例外を処理
+        print("\n<ルイージ>: 消費完了")  # この出力を最後に出すために、StopIteration例外を処理
 
 if __name__ == "__main__":
     consumer_coroutine = consumer()  
@@ -113,24 +113,26 @@ if __name__ == "__main__":
 
 ```
 
-[生産者]: 生産準備OK...
-<消費者>: 準備OK...
+[マリオ]: 生産準備OK...
+<ルイージ>: 準備OK...
 
----[生産者]: 所要時間0.65秒で, アイテム 0 を生産
-<消費者>: アイテム 0 受領... 消費中.........
-<消費者>: 所要時間1.25秒で, アイテム 0 消費完了
+---[マリオ]: 所要時間0.60秒で, アイテム 0 を生産
+<ルイージ>: アイテム 0 受領... 消費中.........
+<ルイージ>: 所要時間1.35秒で, アイテム 0 消費完了
 
----[生産者]: 所要時間1.23秒で, アイテム 1 を生産
-<消費者>: アイテム 1 受領... 消費中.........
-<消費者>: 所要時間1.38秒で, アイテム 1 消費完了
+---[マリオ]: 所要時間1.27秒で, アイテム 1 を生産
+<ルイージ>: アイテム 1 受領... 消費中.........
+<ルイージ>: 所要時間1.00秒で, アイテム 1 消費完了
 
----[生産者]: 所要時間1.25秒で, アイテム 2 を生産
-<消費者>: アイテム 2 受領... 消費中.........
-<消費者>: 所要時間1.10秒で, アイテム 2 消費完了
+---[マリオ]: 所要時間1.11秒で, アイテム 2 を生産
+<ルイージ>: アイテム 2 受領... 消費中.........
+<ルイージ>: 所要時間1.08秒で, アイテム 2 消費完了
 
-<消費者>: 消費完了
+<ルイージ>: 消費完了
 
----[生産者]: 生産終了
+---[マリオ]: 生産終了
+
+
 
 ```
 
@@ -623,8 +625,8 @@ class Controller(Subject):  # イベント契機に通知を発生させるク�
 # オブザーバパターンによるMVCプログラム
 if __name__ == "__main__":
     # モデルの作成
-    model1 = Model("主人公キャラ")
-    model2 = Model("仲間キャラ")
+    model1 = Model("")ルフィ
+    model2 = Model("ゾロ")
 
     # 各種ビューの作成
     html_view = HTMLView()
@@ -659,11 +661,11 @@ if __name__ == "__main__":
 -->
 
 ```
+<div> HTMLView: ルフィ updated to イベント通知:Hi, HTML and CSV表現 </div>
+CSVView,ルフィ,updated,to,イベント通知:Hi, HTML and CSV表現,
+@PDFView: ゾロ イベント通知: Hello, PDF and GUI表現 updated
+□●GUIView: TEXT_FIELD:ゾロ updated to イベント通知: Hello, PDF and GUI表現 CheckBox ✓
 
-<div> HTMLView: 主人公キャラ updated to イベント通知:Hi, HTML and CSV表現 </div>
-CSVView,主人公キャラ,updated,to,イベント通知:Hi, HTML and CSV表現,
-@PDFView: 仲間キャラ イベント通知: Hello, PDF and GUI表現 updated
-□●GUIView: TEXT_FIELD:仲間キャラ updated to イベント通知: Hello, PDF and GUI表現 CheckBox ✓
 
 
 ```
